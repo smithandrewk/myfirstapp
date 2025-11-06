@@ -1,0 +1,968 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		491F5AB62EBC169D00505EDB /* myfirstapp Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 491F5AB52EBC169D00505EDB /* myfirstapp Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		491F5AA02EBC169D00505EDB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 491F5A872EBC169B00505EDB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 491F5A8E2EBC169B00505EDB;
+			remoteInfo = myfirstapp;
+		};
+		491F5AAA2EBC169D00505EDB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 491F5A872EBC169B00505EDB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 491F5A8E2EBC169B00505EDB;
+			remoteInfo = myfirstapp;
+		};
+		491F5AB72EBC169D00505EDB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 491F5A872EBC169B00505EDB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 491F5AB42EBC169D00505EDB;
+			remoteInfo = "myfirstapp Watch App";
+		};
+		491F5AC82EBC169E00505EDB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 491F5A872EBC169B00505EDB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 491F5AB42EBC169D00505EDB;
+			remoteInfo = "myfirstapp Watch App";
+		};
+		491F5AD22EBC169E00505EDB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 491F5A872EBC169B00505EDB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 491F5AB42EBC169D00505EDB;
+			remoteInfo = "myfirstapp Watch App";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		491F5ADE2EBC169E00505EDB /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				491F5AB62EBC169D00505EDB /* myfirstapp Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		491F5A8F2EBC169B00505EDB /* myfirstapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myfirstapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		491F5A9F2EBC169D00505EDB /* myfirstappTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = myfirstappTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		491F5AA92EBC169D00505EDB /* myfirstappUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = myfirstappUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		491F5AB52EBC169D00505EDB /* myfirstapp Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "myfirstapp Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		491F5AC72EBC169E00505EDB /* myfirstapp Watch AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "myfirstapp Watch AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		491F5AD12EBC169E00505EDB /* myfirstapp Watch AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "myfirstapp Watch AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		491F5A912EBC169B00505EDB /* myfirstapp */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = myfirstapp;
+			sourceTree = "<group>";
+		};
+		491F5AA22EBC169D00505EDB /* myfirstappTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = myfirstappTests;
+			sourceTree = "<group>";
+		};
+		491F5AAC2EBC169D00505EDB /* myfirstappUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = myfirstappUITests;
+			sourceTree = "<group>";
+		};
+		491F5AB92EBC169D00505EDB /* myfirstapp Watch App */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "myfirstapp Watch App";
+			sourceTree = "<group>";
+		};
+		491F5ACA2EBC169E00505EDB /* myfirstapp Watch AppTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "myfirstapp Watch AppTests";
+			sourceTree = "<group>";
+		};
+		491F5AD42EBC169E00505EDB /* myfirstapp Watch AppUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "myfirstapp Watch AppUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		491F5A8C2EBC169B00505EDB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		491F5A9C2EBC169D00505EDB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		491F5AA62EBC169D00505EDB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		491F5AB22EBC169D00505EDB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		491F5AC42EBC169E00505EDB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		491F5ACE2EBC169E00505EDB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		491F5A862EBC169B00505EDB = {
+			isa = PBXGroup;
+			children = (
+				491F5A912EBC169B00505EDB /* myfirstapp */,
+				491F5AA22EBC169D00505EDB /* myfirstappTests */,
+				491F5AAC2EBC169D00505EDB /* myfirstappUITests */,
+				491F5AB92EBC169D00505EDB /* myfirstapp Watch App */,
+				491F5ACA2EBC169E00505EDB /* myfirstapp Watch AppTests */,
+				491F5AD42EBC169E00505EDB /* myfirstapp Watch AppUITests */,
+				491F5A902EBC169B00505EDB /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		491F5A902EBC169B00505EDB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				491F5A8F2EBC169B00505EDB /* myfirstapp.app */,
+				491F5A9F2EBC169D00505EDB /* myfirstappTests.xctest */,
+				491F5AA92EBC169D00505EDB /* myfirstappUITests.xctest */,
+				491F5AB52EBC169D00505EDB /* myfirstapp Watch App.app */,
+				491F5AC72EBC169E00505EDB /* myfirstapp Watch AppTests.xctest */,
+				491F5AD12EBC169E00505EDB /* myfirstapp Watch AppUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		491F5A8E2EBC169B00505EDB /* myfirstapp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 491F5ADF2EBC169E00505EDB /* Build configuration list for PBXNativeTarget "myfirstapp" */;
+			buildPhases = (
+				491F5A8B2EBC169B00505EDB /* Sources */,
+				491F5A8C2EBC169B00505EDB /* Frameworks */,
+				491F5A8D2EBC169B00505EDB /* Resources */,
+				491F5ADE2EBC169E00505EDB /* Embed Watch Content */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				491F5AB82EBC169D00505EDB /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				491F5A912EBC169B00505EDB /* myfirstapp */,
+			);
+			name = myfirstapp;
+			packageProductDependencies = (
+			);
+			productName = myfirstapp;
+			productReference = 491F5A8F2EBC169B00505EDB /* myfirstapp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		491F5A9E2EBC169D00505EDB /* myfirstappTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 491F5AE22EBC169E00505EDB /* Build configuration list for PBXNativeTarget "myfirstappTests" */;
+			buildPhases = (
+				491F5A9B2EBC169D00505EDB /* Sources */,
+				491F5A9C2EBC169D00505EDB /* Frameworks */,
+				491F5A9D2EBC169D00505EDB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				491F5AA12EBC169D00505EDB /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				491F5AA22EBC169D00505EDB /* myfirstappTests */,
+			);
+			name = myfirstappTests;
+			packageProductDependencies = (
+			);
+			productName = myfirstappTests;
+			productReference = 491F5A9F2EBC169D00505EDB /* myfirstappTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		491F5AA82EBC169D00505EDB /* myfirstappUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 491F5AE52EBC169E00505EDB /* Build configuration list for PBXNativeTarget "myfirstappUITests" */;
+			buildPhases = (
+				491F5AA52EBC169D00505EDB /* Sources */,
+				491F5AA62EBC169D00505EDB /* Frameworks */,
+				491F5AA72EBC169D00505EDB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				491F5AAB2EBC169D00505EDB /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				491F5AAC2EBC169D00505EDB /* myfirstappUITests */,
+			);
+			name = myfirstappUITests;
+			packageProductDependencies = (
+			);
+			productName = myfirstappUITests;
+			productReference = 491F5AA92EBC169D00505EDB /* myfirstappUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		491F5AB42EBC169D00505EDB /* myfirstapp Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 491F5ADB2EBC169E00505EDB /* Build configuration list for PBXNativeTarget "myfirstapp Watch App" */;
+			buildPhases = (
+				491F5AB12EBC169D00505EDB /* Sources */,
+				491F5AB22EBC169D00505EDB /* Frameworks */,
+				491F5AB32EBC169D00505EDB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				491F5AB92EBC169D00505EDB /* myfirstapp Watch App */,
+			);
+			name = "myfirstapp Watch App";
+			packageProductDependencies = (
+			);
+			productName = "myfirstapp Watch App";
+			productReference = 491F5AB52EBC169D00505EDB /* myfirstapp Watch App.app */;
+			productType = "com.apple.product-type.application";
+		};
+		491F5AC62EBC169E00505EDB /* myfirstapp Watch AppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 491F5AE82EBC169E00505EDB /* Build configuration list for PBXNativeTarget "myfirstapp Watch AppTests" */;
+			buildPhases = (
+				491F5AC32EBC169E00505EDB /* Sources */,
+				491F5AC42EBC169E00505EDB /* Frameworks */,
+				491F5AC52EBC169E00505EDB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				491F5AC92EBC169E00505EDB /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				491F5ACA2EBC169E00505EDB /* myfirstapp Watch AppTests */,
+			);
+			name = "myfirstapp Watch AppTests";
+			packageProductDependencies = (
+			);
+			productName = "myfirstapp Watch AppTests";
+			productReference = 491F5AC72EBC169E00505EDB /* myfirstapp Watch AppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		491F5AD02EBC169E00505EDB /* myfirstapp Watch AppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 491F5AEB2EBC169E00505EDB /* Build configuration list for PBXNativeTarget "myfirstapp Watch AppUITests" */;
+			buildPhases = (
+				491F5ACD2EBC169E00505EDB /* Sources */,
+				491F5ACE2EBC169E00505EDB /* Frameworks */,
+				491F5ACF2EBC169E00505EDB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				491F5AD32EBC169E00505EDB /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				491F5AD42EBC169E00505EDB /* myfirstapp Watch AppUITests */,
+			);
+			name = "myfirstapp Watch AppUITests";
+			packageProductDependencies = (
+			);
+			productName = "myfirstapp Watch AppUITests";
+			productReference = 491F5AD12EBC169E00505EDB /* myfirstapp Watch AppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		491F5A872EBC169B00505EDB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1620;
+				LastUpgradeCheck = 1620;
+				TargetAttributes = {
+					491F5A8E2EBC169B00505EDB = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					491F5A9E2EBC169D00505EDB = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 491F5A8E2EBC169B00505EDB;
+					};
+					491F5AA82EBC169D00505EDB = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 491F5A8E2EBC169B00505EDB;
+					};
+					491F5AB42EBC169D00505EDB = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					491F5AC62EBC169E00505EDB = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 491F5AB42EBC169D00505EDB;
+					};
+					491F5AD02EBC169E00505EDB = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 491F5AB42EBC169D00505EDB;
+					};
+				};
+			};
+			buildConfigurationList = 491F5A8A2EBC169B00505EDB /* Build configuration list for PBXProject "myfirstapp" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 491F5A862EBC169B00505EDB;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 491F5A902EBC169B00505EDB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				491F5A8E2EBC169B00505EDB /* myfirstapp */,
+				491F5A9E2EBC169D00505EDB /* myfirstappTests */,
+				491F5AA82EBC169D00505EDB /* myfirstappUITests */,
+				491F5AB42EBC169D00505EDB /* myfirstapp Watch App */,
+				491F5AC62EBC169E00505EDB /* myfirstapp Watch AppTests */,
+				491F5AD02EBC169E00505EDB /* myfirstapp Watch AppUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		491F5A8D2EBC169B00505EDB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		491F5A9D2EBC169D00505EDB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		491F5AA72EBC169D00505EDB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		491F5AB32EBC169D00505EDB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		491F5AC52EBC169E00505EDB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		491F5ACF2EBC169E00505EDB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		491F5A8B2EBC169B00505EDB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		491F5A9B2EBC169D00505EDB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		491F5AA52EBC169D00505EDB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		491F5AB12EBC169D00505EDB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		491F5AC32EBC169E00505EDB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		491F5ACD2EBC169E00505EDB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		491F5AA12EBC169D00505EDB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 491F5A8E2EBC169B00505EDB /* myfirstapp */;
+			targetProxy = 491F5AA02EBC169D00505EDB /* PBXContainerItemProxy */;
+		};
+		491F5AAB2EBC169D00505EDB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 491F5A8E2EBC169B00505EDB /* myfirstapp */;
+			targetProxy = 491F5AAA2EBC169D00505EDB /* PBXContainerItemProxy */;
+		};
+		491F5AB82EBC169D00505EDB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 491F5AB42EBC169D00505EDB /* myfirstapp Watch App */;
+			targetProxy = 491F5AB72EBC169D00505EDB /* PBXContainerItemProxy */;
+		};
+		491F5AC92EBC169E00505EDB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 491F5AB42EBC169D00505EDB /* myfirstapp Watch App */;
+			targetProxy = 491F5AC82EBC169E00505EDB /* PBXContainerItemProxy */;
+		};
+		491F5AD32EBC169E00505EDB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 491F5AB42EBC169D00505EDB /* myfirstapp Watch App */;
+			targetProxy = 491F5AD22EBC169E00505EDB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		491F5AD92EBC169E00505EDB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		491F5ADA2EBC169E00505EDB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		491F5ADC2EBC169E00505EDB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"myfirstapp Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = 39Z4JS7X4W;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = myfirstapp;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.andrew.myfirstapp;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andrew.myfirstapp.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 11.2;
+			};
+			name = Debug;
+		};
+		491F5ADD2EBC169E00505EDB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"myfirstapp Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = 39Z4JS7X4W;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = myfirstapp;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.andrew.myfirstapp;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andrew.myfirstapp.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 11.2;
+			};
+			name = Release;
+		};
+		491F5AE02EBC169E00505EDB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"myfirstapp/Preview Content\"";
+				DEVELOPMENT_TEAM = 39Z4JS7X4W;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = myfirstapp;
+				INFOPLIST_KEY_NSMotionUsageDescription = "This app collects accelerometer data to track device movement";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andrew.myfirstapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		491F5AE12EBC169E00505EDB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"myfirstapp/Preview Content\"";
+				DEVELOPMENT_TEAM = 39Z4JS7X4W;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = myfirstapp;
+				INFOPLIST_KEY_NSMotionUsageDescription = "This app collects accelerometer data to track device movement";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andrew.myfirstapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		491F5AE32EBC169E00505EDB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 39Z4JS7X4W;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andrew.myfirstappTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/myfirstapp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/myfirstapp";
+			};
+			name = Debug;
+		};
+		491F5AE42EBC169E00505EDB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 39Z4JS7X4W;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andrew.myfirstappTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/myfirstapp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/myfirstapp";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		491F5AE62EBC169E00505EDB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 39Z4JS7X4W;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andrew.myfirstappUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = myfirstapp;
+			};
+			name = Debug;
+		};
+		491F5AE72EBC169E00505EDB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 39Z4JS7X4W;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andrew.myfirstappUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = myfirstapp;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		491F5AE92EBC169E00505EDB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 39Z4JS7X4W;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.andrew.myfirstapp-Watch-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/myfirstapp Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/myfirstapp Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 11.2;
+			};
+			name = Debug;
+		};
+		491F5AEA2EBC169E00505EDB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 39Z4JS7X4W;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.andrew.myfirstapp-Watch-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/myfirstapp Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/myfirstapp Watch App";
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 11.2;
+			};
+			name = Release;
+		};
+		491F5AEC2EBC169E00505EDB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 39Z4JS7X4W;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.andrew.myfirstapp-Watch-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "myfirstapp Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 11.2;
+			};
+			name = Debug;
+		};
+		491F5AED2EBC169E00505EDB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 39Z4JS7X4W;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.andrew.myfirstapp-Watch-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "myfirstapp Watch App";
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 11.2;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		491F5A8A2EBC169B00505EDB /* Build configuration list for PBXProject "myfirstapp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				491F5AD92EBC169E00505EDB /* Debug */,
+				491F5ADA2EBC169E00505EDB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		491F5ADB2EBC169E00505EDB /* Build configuration list for PBXNativeTarget "myfirstapp Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				491F5ADC2EBC169E00505EDB /* Debug */,
+				491F5ADD2EBC169E00505EDB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		491F5ADF2EBC169E00505EDB /* Build configuration list for PBXNativeTarget "myfirstapp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				491F5AE02EBC169E00505EDB /* Debug */,
+				491F5AE12EBC169E00505EDB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		491F5AE22EBC169E00505EDB /* Build configuration list for PBXNativeTarget "myfirstappTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				491F5AE32EBC169E00505EDB /* Debug */,
+				491F5AE42EBC169E00505EDB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		491F5AE52EBC169E00505EDB /* Build configuration list for PBXNativeTarget "myfirstappUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				491F5AE62EBC169E00505EDB /* Debug */,
+				491F5AE72EBC169E00505EDB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		491F5AE82EBC169E00505EDB /* Build configuration list for PBXNativeTarget "myfirstapp Watch AppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				491F5AE92EBC169E00505EDB /* Debug */,
+				491F5AEA2EBC169E00505EDB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		491F5AEB2EBC169E00505EDB /* Build configuration list for PBXNativeTarget "myfirstapp Watch AppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				491F5AEC2EBC169E00505EDB /* Debug */,
+				491F5AED2EBC169E00505EDB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 491F5A872EBC169B00505EDB /* Project object */;
+}
