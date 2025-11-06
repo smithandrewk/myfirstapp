@@ -10,6 +10,7 @@ import UniformTypeIdentifiers
 
 struct ContentView: View {
     @StateObject private var connectivity = WatchConnectivityManager.shared
+    @StateObject private var tagManager = TagManager.shared
 
     var body: some View {
         NavigationView {
@@ -48,6 +49,7 @@ struct ContentView: View {
     private func deleteFiles(at offsets: IndexSet) {
         for index in offsets {
             let fileURL = connectivity.receivedFiles[index]
+            tagManager.deleteTagsForFile(fileURL.lastPathComponent)
             connectivity.deleteFile(at: fileURL)
         }
     }
@@ -55,11 +57,12 @@ struct ContentView: View {
 
 struct FileRow: View {
     let fileURL: URL
+    @StateObject private var tagManager = TagManager.shared
     @State private var showShareSheet = false
 
     var body: some View {
         HStack {
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: 8) {
                 Text(fileURL.lastPathComponent)
                     .font(.headline)
 
@@ -69,6 +72,19 @@ struct FileRow: View {
                     Text("\(formatFileSize(size)) • \(formatDate(date))")
                         .font(.caption)
                         .foregroundColor(.secondary)
+                }
+
+                // Tags display (read-only)
+                let tags = tagManager.getTags(for: fileURL.lastPathComponent).sorted()
+                if !tags.isEmpty {
+                    FlowLayout(spacing: 6) {
+                        ForEach(tags, id: \.self) { tag in
+                            TagPillView(
+                                tag: tag,
+                                color: tagManager.colorForTag(tag)
+                            )
+                        }
+                    }
                 }
             }
 

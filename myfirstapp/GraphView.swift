@@ -22,6 +22,13 @@ struct GraphView: View {
     @State private var dataPoints: [AccelerometerDataPoint] = []
     @State private var isLoading = true
     @State private var errorMessage: String?
+    @StateObject private var tagManager = TagManager.shared
+    @State private var selectedTags: Set<String> = []
+    @State private var newTagText: String = ""
+    @State private var showingAddField: Bool = false
+    @State private var tagToDelete: String?
+    @State private var showingDeleteAlert = false
+    @FocusState private var isTextFieldFocused: Bool
 
     var body: some View {
         VStack {
@@ -108,6 +115,79 @@ struct GraphView: View {
                         }
                         .font(.caption)
                         .padding(.horizontal)
+
+                        Divider()
+                            .padding(.vertical)
+
+                        // Tags section
+                        VStack(alignment: .leading, spacing: 12) {
+                            Text("Tags")
+                                .font(.headline)
+                                .foregroundColor(.secondary)
+                                .padding(.horizontal)
+
+                            if !tagManager.allTags.isEmpty {
+                                FlowLayout(spacing: 8) {
+                                    ForEach(Array(tagManager.allTags).sorted(), id: \.self) { tag in
+                                        TagPillView(
+                                            tag: tag,
+                                            color: tagManager.colorForTag(tag),
+                                            isSelected: selectedTags.contains(tag)
+                                        )
+                                        .onTapGesture {
+                                            toggleTag(tag)
+                                        }
+                                        .onLongPressGesture(minimumDuration: 0.5) {
+                                            tagToDelete = tag
+                                            showingDeleteAlert = true
+                                        }
+                                    }
+                                }
+                                .padding(.horizontal)
+                            }
+
+                            // Add new tag
+                            if showingAddField {
+                                HStack {
+                                    TextField("Enter tag name", text: $newTagText)
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                        .autocapitalization(.none)
+                                        .focused($isTextFieldFocused)
+
+                                    Button(action: addNewTag) {
+                                        Image(systemName: "checkmark.circle.fill")
+                                            .font(.title2)
+                                            .foregroundColor(.blue)
+                                    }
+                                    .disabled(newTagText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+
+                                    Button(action: {
+                                        showingAddField = false
+                                        newTagText = ""
+                                        isTextFieldFocused = false
+                                    }) {
+                                        Image(systemName: "xmark.circle.fill")
+                                            .font(.title2)
+                                            .foregroundColor(.gray)
+                                    }
+                                }
+                                .padding(.horizontal)
+                            } else {
+                                Button(action: {
+                                    showingAddField = true
+                                    isTextFieldFocused = true
+                                }) {
+                                    HStack {
+                                        Image(systemName: "plus.circle.fill")
+                                        Text("Add New Tag")
+                                    }
+                                    .font(.headline)
+                                    .foregroundColor(.blue)
+                                }
+                                .padding(.horizontal)
+                            }
+                        }
+                        .padding(.bottom)
                     }
                     .padding(.vertical)
                 }
@@ -117,6 +197,22 @@ struct GraphView: View {
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             loadData()
+            selectedTags = Set(tagManager.getTags(for: fileURL.lastPathComponent))
+        }
+        .alert("Delete Tag", isPresented: $showingDeleteAlert) {
+            Button("Cancel", role: .cancel) {
+                tagToDelete = nil
+            }
+            Button("Delete", role: .destructive) {
+                if let tag = tagToDelete {
+                    deleteTag(tag)
+                }
+                tagToDelete = nil
+            }
+        } message: {
+            if let tag = tagToDelete {
+                Text("Are you sure you want to delete '\(tag)' from all files?")
+            }
         }
     }
 
@@ -224,6 +320,39 @@ struct GraphView: View {
             let minutes = Int((duration.truncatingRemainder(dividingBy: 3600)) / 60)
             return "\(hours)h \(minutes)m"
         }
+    }
+
+    private func toggleTag(_ tag: String) {
+        if selectedTags.contains(tag) {
+            selectedTags.remove(tag)
+        } else {
+            selectedTags.insert(tag)
+        }
+        saveTags()
+    }
+
+    private func addNewTag() {
+        let trimmed = newTagText.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return }
+
+        tagManager.addTag(trimmed)
+        selectedTags.insert(trimmed)
+        newTagText = ""
+        showingAddField = false
+        saveTags()
+    }
+
+    private func saveTags() {
+        tagManager.setTags(Array(selectedTags), for: fileURL.lastPathComponent)
+    }
+
+    private func deleteTag(_ tag: String) {
+        // Remove from current file's selection
+        selectedTags.remove(tag)
+        saveTags()
+
+        // Delete from global library
+        tagManager.deleteTag(tag)
     }
 }
 
