@@ -33,12 +33,20 @@ struct ContentView: View {
                             ForEach(connectivity.receivedFiles, id: \.self) { fileURL in
                                 FileRow(fileURL: fileURL)
                             }
+                            .onDelete(perform: deleteFiles)
                         }
                     }
                 }
             }
             .navigationTitle("Accelerometer Data")
             .navigationBarTitleDisplayMode(.inline)
+        }
+    }
+
+    private func deleteFiles(at offsets: IndexSet) {
+        for index in offsets {
+            let fileURL = connectivity.receivedFiles[index]
+            connectivity.deleteFile(at: fileURL)
         }
     }
 }

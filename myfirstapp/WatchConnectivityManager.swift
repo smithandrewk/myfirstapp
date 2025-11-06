@@ -21,6 +21,53 @@ class WatchConnectivityManager: NSObject, ObservableObject {
             WCSession.default.delegate = self
             WCSession.default.activate()
         }
+
+        // Load existing files from documents directory
+        loadExistingFiles()
+    }
+
+    // Load all existing CSV files from documents directory
+    func loadExistingFiles() {
+        let fileManager = FileManager.default
+        guard let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            print("Could not access documents directory")
+            return
+        }
+
+        do {
+            let fileURLs = try fileManager.contentsOfDirectory(at: documentsURL, includingPropertiesForKeys: [.creationDateKey], options: .skipsHiddenFiles)
+
+            // Filter for CSV files and sort by creation date (newest first)
+            let csvFiles = fileURLs
+                .filter { $0.pathExtension == "csv" }
+                .sorted { url1, url2 in
+                    let date1 = (try? url1.resourceValues(forKeys: [.creationDateKey]).creationDate) ?? Date.distantPast
+                    let date2 = (try? url2.resourceValues(forKeys: [.creationDateKey]).creationDate) ?? Date.distantPast
+                    return date1 > date2
+                }
+
+            DispatchQueue.main.async {
+                self.receivedFiles = csvFiles
+                print("Loaded \(csvFiles.count) existing files")
+            }
+        } catch {
+            print("Error loading existing files: \(error.localizedDescription)")
+        }
+    }
+
+    // Delete a file from filesystem and update the array
+    func deleteFile(at url: URL) {
+        let fileManager = FileManager.default
+
+        do {
+            try fileManager.removeItem(at: url)
+            DispatchQueue.main.async {
+                self.receivedFiles.removeAll { $0 == url }
+                print("Deleted file: \(url.lastPathComponent)")
+            }
+        } catch {
+            print("Error deleting file: \(error.localizedDescription)")
+        }
     }
 }
 

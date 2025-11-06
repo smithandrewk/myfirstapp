@@ -52,4 +52,21 @@ extension WatchConnectivityManager: WCSessionDelegate {
             self.isReachable = session.isReachable
         }
     }
+
+    func session(_ session: WCSession, didFinish fileTransfer: WCSessionFileTransfer, error: Error?) {
+        if let error = error {
+            print("File transfer failed: \(error.localizedDescription)")
+        } else {
+            print("File transfer completed successfully")
+
+            // Delete the file from Watch after successful transfer
+            let fileURL = fileTransfer.file.fileURL
+            do {
+                try FileManager.default.removeItem(at: fileURL)
+                print("Deleted file from Watch: \(fileURL.lastPathComponent)")
+            } catch {
+                print("Error deleting file from Watch: \(error.localizedDescription)")
+            }
+        }
+    }
 }
