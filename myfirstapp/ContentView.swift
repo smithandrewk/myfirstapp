@@ -31,7 +31,9 @@ struct ContentView: View {
                     List {
                         Section(header: Text("Received Files (\(connectivity.receivedFiles.count))")) {
                             ForEach(connectivity.receivedFiles, id: \.self) { fileURL in
-                                FileRow(fileURL: fileURL)
+                                NavigationLink(destination: GraphView(fileURL: fileURL)) {
+                                    FileRow(fileURL: fileURL)
+                                }
                             }
                             .onDelete(perform: deleteFiles)
                         }
