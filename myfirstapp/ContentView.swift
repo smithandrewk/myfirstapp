@@ -14,8 +14,43 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            VStack {
-                if connectivity.receivedFiles.isEmpty {
+            VStack(spacing: 0) {
+                // MARK: - Status Section
+                VStack(spacing: 8) {
+                    // Collection Status
+                    HStack(spacing: 8) {
+                        if connectivity.isWatchCollecting {
+                            ProgressView()
+                                .scaleEffect(0.8)
+                            Text("Watch is collecting data...")
+                                .font(.subheadline)
+                                .foregroundColor(.green)
+                        } else {
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundColor(.gray)
+                            Text("Ready to collect")
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                        }
+
+                        Spacer()
+                    }
+                    .padding(.horizontal)
+
+                    // Instructions
+                    Text("Use the Watch app to start and stop data collection")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal)
+                }
+                .padding(.vertical, 12)
+                .background(Color(.systemGray6))
+
+                Divider()
+
+                // MARK: - File List Section
+                if connectivity.files.isEmpty {
                     VStack(spacing: 16) {
                         Image(systemName: "applewatch.and.arrow.forward")
                             .font(.system(size: 64))
@@ -30,10 +65,16 @@ struct ContentView: View {
                     .padding()
                 } else {
                     List {
-                        Section(header: Text("Received Files (\(connectivity.receivedFiles.count))")) {
-                            ForEach(connectivity.receivedFiles, id: \.self) { fileURL in
-                                NavigationLink(destination: GraphView(fileURL: fileURL)) {
-                                    FileRow(fileURL: fileURL)
+                        Section(header: Text("Files (\(connectivity.files.count))")) {
+                            ForEach(connectivity.files) { fileItem in
+                                if fileItem.status == .transferring {
+                                    // Show transferring state
+                                    TransferringFileRow(filename: fileItem.filename)
+                                } else if let url = fileItem.url {
+                                    // Show available file
+                                    NavigationLink(destination: GraphView(fileURL: url)) {
+                                        FileRow(fileURL: url)
+                                    }
                                 }
                             }
                             .onDelete(perform: deleteFiles)
@@ -48,10 +89,40 @@ struct ContentView: View {
 
     private func deleteFiles(at offsets: IndexSet) {
         for index in offsets {
-            let fileURL = connectivity.receivedFiles[index]
-            tagManager.deleteTagsForFile(fileURL.lastPathComponent)
-            connectivity.deleteFile(at: fileURL)
+            let fileItem = connectivity.files[index]
+            if let url = fileItem.url {
+                tagManager.deleteTagsForFile(url.lastPathComponent)
+                connectivity.deleteFile(at: url)
+            } else {
+                // Transferring file - just remove from list
+                connectivity.deleteFile(named: fileItem.filename)
+            }
         }
+    }
+}
+
+struct TransferringFileRow: View {
+    let filename: String
+
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 8) {
+                Text(filename)
+                    .font(.headline)
+                    .foregroundColor(.secondary)
+
+                HStack(spacing: 6) {
+                    ProgressView()
+                        .scaleEffect(0.7)
+                    Text("Transferring from Watch...")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+            }
+
+            Spacer()
+        }
+        .opacity(0.6)
     }
 }
 

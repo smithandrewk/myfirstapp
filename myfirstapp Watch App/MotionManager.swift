@@ -16,10 +16,17 @@ struct AccelerometerReading {
 }
 
 class MotionManager: ObservableObject {
+    static let shared = MotionManager()
+
     private let motionManager = CMMotionManager()
 
     @Published var accelerometerData: [AccelerometerReading] = []
-    @Published var isCollecting = false
+    @Published var isCollecting = false {
+        didSet {
+            // Broadcast state change to iPhone
+            WatchConnectivityManager.shared.broadcastState(isCollecting: isCollecting)
+        }
+    }
 
     var updateInterval: TimeInterval = 0.1 // 10 Hz - adjustable
 
@@ -113,6 +120,11 @@ class MotionManager: ObservableObject {
             completion(false, "Failed to save CSV file")
             return
         }
+
+        let fileName = fileURL.lastPathComponent
+
+        // Notify iPhone that transfer is starting
+        WatchConnectivityManager.shared.notifyTransferStarting(fileName: fileName)
 
         // Transfer file to iPhone
         WatchConnectivityManager.shared.transferFile(url: fileURL) { success, message in
