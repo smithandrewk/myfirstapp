@@ -38,6 +38,10 @@ class WatchConnectivityManager: NSObject, ObservableObject {
     @Published var receivedFiles: [URL] = []
     @Published var lastReceivedFileName: String?
 
+    // File metadata storage
+    private let metadataKey = "fileMetadata"
+    private var fileMetadata: [String: [String: Any]] = [:]
+
     private override init() {
         super.init()
 
@@ -46,8 +50,38 @@ class WatchConnectivityManager: NSObject, ObservableObject {
             WCSession.default.activate()
         }
 
+        // Load metadata from UserDefaults
+        loadMetadata()
+
         // Load existing files from documents directory
         loadExistingFiles()
+    }
+
+    // MARK: - Metadata Management
+
+    private func loadMetadata() {
+        if let data = UserDefaults.standard.dictionary(forKey: metadataKey) as? [String: [String: Any]] {
+            fileMetadata = data
+            print("📋 Loaded metadata for \(fileMetadata.count) files")
+        }
+    }
+
+    private func saveMetadata() {
+        UserDefaults.standard.set(fileMetadata, forKey: metadataKey)
+    }
+
+    func getMetadata(for filename: String) -> [String: Any]? {
+        return fileMetadata[filename]
+    }
+
+    func setMetadata(_ metadata: [String: Any], for filename: String) {
+        fileMetadata[filename] = metadata
+        saveMetadata()
+        print("💾 Saved metadata for \(filename): \(metadata)")
+    }
+
+    func getElapsedTime(for filename: String) -> TimeInterval? {
+        return fileMetadata[filename]?["elapsedTime"] as? TimeInterval
     }
 
     // Load all existing CSV files from documents directory
@@ -280,6 +314,19 @@ extension WatchConnectivityManager: WCSessionDelegate {
     func session(_ session: WCSession, didReceive file: WCSessionFile) {
         let fileName = file.fileURL.lastPathComponent
         print("📥 FILE RECEIVED: \(fileName)")
+
+        // Extract and save metadata
+        if let metadata = file.metadata {
+            print("📋 Received metadata: \(metadata)")
+            setMetadata(metadata, for: fileName)
+
+            // Log elapsed time if available
+            if let elapsedTime = metadata["elapsedTime"] as? TimeInterval {
+                let minutes = Int(elapsedTime / 60)
+                let seconds = Int(elapsedTime.truncatingRemainder(dividingBy: 60))
+                print("⏱️  Expected duration: \(minutes)m \(seconds)s (\(elapsedTime) seconds)")
+            }
+        }
 
         // Move file to documents directory
         let fileManager = FileManager.default

@@ -129,6 +129,7 @@ struct TransferringFileRow: View {
 struct FileRow: View {
     let fileURL: URL
     @StateObject private var tagManager = TagManager.shared
+    @StateObject private var connectivity = WatchConnectivityManager.shared
     @State private var showShareSheet = false
 
     var body: some View {
@@ -143,6 +144,13 @@ struct FileRow: View {
                     Text("\(formatFileSize(size)) • \(formatDate(date))")
                         .font(.caption)
                         .foregroundColor(.secondary)
+                }
+
+                // Expected duration from metadata
+                if let elapsedTime = connectivity.getElapsedTime(for: fileURL.lastPathComponent) {
+                    Text("Expected duration: \(formatDuration(elapsedTime))")
+                        .font(.caption)
+                        .foregroundColor(.orange)
                 }
 
                 // Tags display (read-only)
@@ -185,6 +193,17 @@ struct FileRow: View {
         formatter.dateStyle = .short
         formatter.timeStyle = .short
         return formatter.string(from: date)
+    }
+
+    private func formatDuration(_ duration: TimeInterval) -> String {
+        let minutes = Int(duration / 60)
+        let seconds = Int(duration.truncatingRemainder(dividingBy: 60))
+
+        if minutes > 0 {
+            return "\(minutes)m \(seconds)s"
+        } else {
+            return "\(seconds)s"
+        }
     }
 }
 

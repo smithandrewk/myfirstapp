@@ -28,6 +28,7 @@ class MotionManager: ObservableObject {
         }
     }
 
+    private var startTime: Date?
     var updateInterval: TimeInterval = 0.1 // 10 Hz - adjustable
 
     var isAvailable: Bool {
@@ -47,6 +48,10 @@ class MotionManager: ObservableObject {
 
         accelerometerData.removeAll()
         motionManager.accelerometerUpdateInterval = updateInterval
+
+        // Record start time
+        startTime = Date()
+        print("⏱️ Started collection at: \(startTime!)")
 
         motionManager.startAccelerometerUpdates(to: .main) { [weak self] data, error in
             guard let self = self else { return }
@@ -76,6 +81,11 @@ class MotionManager: ObservableObject {
         isCollecting = false
     }
 
+    func getElapsedTime() -> TimeInterval? {
+        guard let startTime = startTime else { return nil }
+        return Date().timeIntervalSince(startTime)
+    }
+
     func saveDataToCSV() -> URL? {
         guard !accelerometerData.isEmpty else {
             print("No data to save")
@@ -95,8 +105,30 @@ class MotionManager: ObservableObject {
 
         let fileURL = documentsURL.appendingPathComponent(fileName)
 
-        // Build CSV content
-        var csvText = "Timestamp,X,Y,Z\n"
+        // Build CSV content with metadata as comments
+        var csvText = ""
+
+        // Add metadata header
+        csvText += "# Accelerometer Data Export\n"
+        csvText += "# Generated: \(ISO8601DateFormatter().string(from: Date()))\n"
+
+        if let startTime = startTime {
+            let isoFormatter = ISO8601DateFormatter()
+            csvText += "# Start Time: \(isoFormatter.string(from: startTime))\n"
+
+            let elapsedTime = getElapsedTime() ?? 0
+            let minutes = Int(elapsedTime / 60)
+            let seconds = Int(elapsedTime.truncatingRemainder(dividingBy: 60))
+            csvText += "# End Time: \(isoFormatter.string(from: Date()))\n"
+            csvText += "# Elapsed Time: \(elapsedTime) seconds (\(minutes)m \(seconds)s)\n"
+        }
+
+        csvText += "# Sample Rate: \(Int(1.0 / updateInterval)) Hz\n"
+        csvText += "# Data Points: \(accelerometerData.count)\n"
+        csvText += "#\n"
+
+        // Add CSV header and data
+        csvText += "Timestamp,X,Y,Z\n"
         for reading in accelerometerData {
             csvText += "\(reading.timestamp),\(reading.x),\(reading.y),\(reading.z)\n"
         }
@@ -113,6 +145,7 @@ class MotionManager: ObservableObject {
 
     func clearData() {
         accelerometerData.removeAll()
+        startTime = nil
     }
 
     func saveAndTransferToiPhone(completion: @escaping (Bool, String) -> Void) {
@@ -123,11 +156,22 @@ class MotionManager: ObservableObject {
 
         let fileName = fileURL.lastPathComponent
 
+        // Calculate elapsed time
+        let elapsedTime = getElapsedTime() ?? 0
+        print("⏱️ Elapsed time: \(elapsedTime) seconds (\(Int(elapsedTime / 60)) minutes)")
+
+        // Create metadata
+        let metadata: [String: Any] = [
+            "elapsedTime": elapsedTime,
+            "startTime": startTime?.timeIntervalSince1970 ?? 0,
+            "endTime": Date().timeIntervalSince1970
+        ]
+
         // Notify iPhone that transfer is starting
         WatchConnectivityManager.shared.notifyTransferStarting(fileName: fileName)
 
-        // Transfer file to iPhone
-        WatchConnectivityManager.shared.transferFile(url: fileURL) { success, message in
+        // Transfer file to iPhone with metadata
+        WatchConnectivityManager.shared.transferFile(url: fileURL, metadata: metadata) { success, message in
             completion(success, message)
         }
     }

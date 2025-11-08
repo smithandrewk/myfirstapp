@@ -23,14 +23,20 @@ class WatchConnectivityManager: NSObject, ObservableObject {
         }
     }
 
-    func transferFile(url: URL, completion: @escaping (Bool, String) -> Void) {
+    func transferFile(url: URL, metadata: [String: Any]? = nil, completion: @escaping (Bool, String) -> Void) {
         guard WCSession.default.activationState == .activated else {
             completion(false, "Watch Connectivity not activated")
             return
         }
 
-        // Transfer the file
-        WCSession.default.transferFile(url, metadata: ["type": "csv"])
+        // Merge provided metadata with default type
+        var transferMetadata = metadata ?? [:]
+        transferMetadata["type"] = "csv"
+
+        // Transfer the file with metadata
+        WCSession.default.transferFile(url, metadata: transferMetadata)
+
+        print("📤 Transferring file with metadata: \(transferMetadata)")
 
         completion(true, "File queued for transfer to iPhone")
     }
