@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var motionManager = MotionManager()
+    @EnvironmentObject private var motionManager: MotionManager
     @StateObject private var connectivity = WatchConnectivityManager.shared
     @State private var showSaveAlert = false
     @State private var saveMessage = ""
@@ -18,15 +18,52 @@ struct ContentView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
-                // Status indicator
-                VStack(spacing: 4) {
-                    Image(systemName: motionManager.isCollecting ? "waveform.path" : "waveform.path.badge.minus")
-                        .font(.title)
-                        .foregroundColor(motionManager.isCollecting ? .green : .gray)
+                // Always On Display tip banner
+                HStack(spacing: 6) {
+                    Image(systemName: "info.circle.fill")
+                        .font(.caption2)
+                    Text("Enable Always On Display for continuous real-time data")
+                        .font(.caption2)
+                        .multilineTextAlignment(.leading)
+                }
+                .foregroundColor(.blue)
+                .padding(.horizontal, 8)
+                .padding(.vertical, 6)
+                .background(Color.blue.opacity(0.15))
+                .cornerRadius(8)
 
-                    Text(motionManager.isCollecting ? "Collecting..." : "Ready")
+                // Status indicator with session state
+                VStack(spacing: 4) {
+                    Image(systemName: statusIcon)
+                        .font(.title)
+                        .foregroundColor(statusColor)
+
+                    Text(statusText)
                         .font(.caption)
                         .foregroundColor(.secondary)
+
+                    // Background indicator
+                    if case .backgrounded = motionManager.sessionState {
+                        HStack(spacing: 4) {
+                            Image(systemName: "moon.fill")
+                                .font(.caption2)
+                            Text("Background Active")
+                                .font(.caption2)
+                        }
+                        .foregroundColor(.yellow)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
+                        .background(Color.yellow.opacity(0.2))
+                        .cornerRadius(8)
+                    }
+
+                    // Session duration
+                    if motionManager.isCollecting {
+                        Text(formatDuration(motionManager.sessionDuration))
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                            .monospacedDigit()
+                    }
                 }
                 .padding(.top, 8)
 
@@ -113,6 +150,20 @@ struct ContentView: View {
                     .buttonStyle(.bordered)
                     .tint(.red)
                 }
+
+                // Reset part counter button (persistent - always visible when not collecting)
+                if !motionManager.isCollecting {
+                    Button(action: {
+                        motionManager.resetPartCounter()
+                    }) {
+                        Label("Reset Part #", systemImage: "arrow.counterclockwise")
+                            .font(.caption)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 6)
+                    }
+                    .buttonStyle(.bordered)
+                    .tint(.orange)
+                }
             }
             .padding()
         }
@@ -147,6 +198,71 @@ struct ContentView: View {
             } else {
                 errorMessage = message
             }
+        }
+    }
+
+    // MARK: - Status Helpers
+
+    private var statusIcon: String {
+        switch motionManager.sessionState {
+        case .idle:
+            return "waveform.path.badge.minus"
+        case .starting:
+            return "waveform.path.badge.plus"
+        case .running:
+            return "waveform.path"
+        case .backgrounded:
+            return "waveform.path"
+        case .stopping:
+            return "stop.circle"
+        case .error:
+            return "exclamationmark.triangle"
+        }
+    }
+
+    private var statusColor: Color {
+        switch motionManager.sessionState {
+        case .idle:
+            return .gray
+        case .starting:
+            return .orange
+        case .running:
+            return .green
+        case .backgrounded:
+            return .green
+        case .stopping:
+            return .orange
+        case .error:
+            return .red
+        }
+    }
+
+    private var statusText: String {
+        switch motionManager.sessionState {
+        case .idle:
+            return "Ready"
+        case .starting:
+            return "Starting..."
+        case .running:
+            return "Collecting"
+        case .backgrounded:
+            return "Background"
+        case .stopping:
+            return "Stopping..."
+        case .error(let message):
+            return "Error: \(message)"
+        }
+    }
+
+    private func formatDuration(_ duration: TimeInterval) -> String {
+        let hours = Int(duration) / 3600
+        let minutes = Int(duration) / 60 % 60
+        let seconds = Int(duration) % 60
+
+        if hours > 0 {
+            return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+        } else {
+            return String(format: "%02d:%02d", minutes, seconds)
         }
     }
 }

@@ -57,16 +57,9 @@ extension WatchConnectivityManager: WCSessionDelegate {
         if let error = error {
             print("File transfer failed: \(error.localizedDescription)")
         } else {
-            print("File transfer completed successfully")
-
-            // Delete the file from Watch after successful transfer
-            let fileURL = fileTransfer.file.fileURL
-            do {
-                try FileManager.default.removeItem(at: fileURL)
-                print("Deleted file from Watch: \(fileURL.lastPathComponent)")
-            } catch {
-                print("Error deleting file from Watch: \(error.localizedDescription)")
-            }
+            print("File transfer completed successfully: \(fileTransfer.file.fileURL.lastPathComponent)")
+            // Note: Files are kept on watch until user explicitly clears data
+            // This allows re-transfer if needed and prevents accidental data loss
         }
     }
 }
