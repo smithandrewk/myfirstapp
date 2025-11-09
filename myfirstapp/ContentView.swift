@@ -14,70 +14,259 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            VStack {
-                if connectivity.receivedFiles.isEmpty {
-                    VStack(spacing: 16) {
-                        Image(systemName: "applewatch.and.arrow.forward")
-                            .font(.system(size: 64))
-                            .foregroundColor(.gray)
-                        Text("No files received yet")
-                            .font(.headline)
-                        Text("Send accelerometer data from your Watch")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                            .multilineTextAlignment(.center)
+            ZStack {
+                // Background
+                Color.dsBackgroundSecondary
+                    .ignoresSafeArea()
+
+                VStack(spacing: 0) {
+                    // MARK: - Status Section
+                    GlassCard(padding: Spacing.md) {
+                        VStack(spacing: Spacing.sm) {
+                            HStack(spacing: Spacing.sm) {
+                                if connectivity.isWatchCollecting {
+                                    StatusBadge(
+                                        text: "Collecting Data",
+                                        icon: "wave.3.right",
+                                        color: .dsSuccess,
+                                        isAnimating: true
+                                    )
+                                } else {
+                                    StatusBadge(
+                                        text: "Ready",
+                                        icon: "checkmark.circle.fill",
+                                        color: .dsSecondary
+                                    )
+                                }
+
+                                Spacer()
+
+                                Image(systemName: "applewatch")
+                                    .font(.title3)
+                                    .foregroundColor(.dsAccent)
+                            }
+
+                            Text("Use the Watch app to start and stop data collection")
+                                .font(.dsCaption)
+                                .foregroundColor(.dsSecondary)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        }
                     }
-                    .padding()
-                } else {
-                    List {
-                        Section(header: Text("Received Files (\(connectivity.receivedFiles.count))")) {
-                            ForEach(connectivity.receivedFiles, id: \.self) { fileURL in
-                                NavigationLink(destination: GraphView(fileURL: fileURL)) {
-                                    FileRow(fileURL: fileURL)
+                    .padding(.horizontal, Spacing.md)
+                    .padding(.top, Spacing.sm)
+
+                    // MARK: - File List Section
+                    if connectivity.files.isEmpty {
+                        Spacer()
+                        EmptyStateView(
+                            icon: "applewatch.radiowaves.left.and.right",
+                            title: "No Data Yet",
+                            subtitle: "Send accelerometer data from your Apple Watch to get started",
+                            iconColor: .blue
+                        )
+                        Spacer()
+                    } else {
+                        VStack(spacing: 0) {
+                            // Section Header
+                            HStack {
+                                Text("Files")
+                                    .font(.dsHeadline)
+                                Spacer()
+                                Text("\(connectivity.files.count)")
+                                    .font(.dsCallout)
+                                    .foregroundColor(.dsSecondary)
+                                    .padding(.horizontal, Spacing.sm)
+                                    .padding(.vertical, 4)
+                                    .background(
+                                        Capsule()
+                                            .fill(Color.dsAccent.opacity(0.12))
+                                    )
+                            }
+                            .padding(.horizontal, Spacing.md)
+                            .padding(.top, Spacing.md)
+                            .padding(.bottom, Spacing.sm)
+
+                            // File List
+                            List {
+                                ForEach(connectivity.files) { fileItem in
+                                    if fileItem.status == .transferring {
+                                        TransferringFileCard(filename: fileItem.filename)
+                                            .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
+                                            .listRowBackground(Color.clear)
+                                            .listRowSeparator(.hidden)
+                                    } else if let url = fileItem.url {
+                                        ZStack {
+                                            NavigationLink(destination: GraphView(fileURL: url)) {
+                                                EmptyView()
+                                            }
+                                            .opacity(0)
+
+                                            FileCard(fileURL: url)
+                                        }
+                                        .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
+                                        .listRowBackground(Color.clear)
+                                        .listRowSeparator(.hidden)
+                                        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                                            Button(role: .destructive) {
+                                                deleteFile(url: url, filename: fileItem.filename)
+                                            } label: {
+                                                Label("Delete", systemImage: "trash")
+                                            }
+                                        }
+                                    }
                                 }
                             }
-                            .onDelete(perform: deleteFiles)
+                            .listStyle(.plain)
+                            .scrollContentBackground(.hidden)
                         }
                     }
                 }
             }
-            .navigationTitle("Accelerometer Data")
+            .navigationTitle("Accelerometer")
             .navigationBarTitleDisplayMode(.inline)
         }
     }
 
-    private func deleteFiles(at offsets: IndexSet) {
-        for index in offsets {
-            let fileURL = connectivity.receivedFiles[index]
-            tagManager.deleteTagsForFile(fileURL.lastPathComponent)
-            connectivity.deleteFile(at: fileURL)
-        }
+    private func deleteFile(url: URL, filename: String) {
+        tagManager.deleteTagsForFile(filename)
+        connectivity.deleteFile(at: url)
     }
 }
 
-struct FileRow: View {
+struct TransferringFileCard: View {
+    let filename: String
+
+    var body: some View {
+        ModernCard(shadow: .subtle) {
+            HStack(spacing: Spacing.md) {
+                // Animated icon
+                ZStack {
+                    Circle()
+                        .fill(Color.dsAccent.opacity(0.12))
+                        .frame(width: 48, height: 48)
+
+                    Image(systemName: "arrow.down.circle.fill")
+                        .font(.title2)
+                        .foregroundStyle(
+                            LinearGradient(
+                                colors: [.blue, .purple],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                }
+
+                VStack(alignment: .leading, spacing: Spacing.xs) {
+                    Text(filename)
+                        .font(.dsCallout)
+                        .foregroundColor(.dsPrimary)
+                        .lineLimit(1)
+
+                    HStack(spacing: 6) {
+                        ProgressView()
+                            .scaleEffect(0.7)
+                        Text("Transferring from Watch...")
+                            .font(.dsCaption)
+                            .foregroundColor(.dsSecondary)
+                    }
+                }
+
+                Spacer()
+            }
+        }
+        .opacity(0.8)
+    }
+}
+
+struct FileCard: View {
     let fileURL: URL
     @StateObject private var tagManager = TagManager.shared
+    @StateObject private var connectivity = WatchConnectivityManager.shared
     @State private var showShareSheet = false
 
     var body: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 8) {
-                Text(fileURL.lastPathComponent)
-                    .font(.headline)
+        ModernCard(shadow: .medium) {
+            VStack(alignment: .leading, spacing: Spacing.md) {
+                HStack(spacing: Spacing.md) {
+                    // Icon
+                    ZStack {
+                        Circle()
+                            .fill(
+                                LinearGradient(
+                                    colors: [Color.dsAccent.opacity(0.2), Color.purple.opacity(0.1)],
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                )
+                            )
+                            .frame(width: 48, height: 48)
 
-                if let attributes = try? FileManager.default.attributesOfItem(atPath: fileURL.path),
-                   let size = attributes[.size] as? Int64,
-                   let date = attributes[.modificationDate] as? Date {
-                    Text("\(formatFileSize(size)) • \(formatDate(date))")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
+                        Image(systemName: "waveform.path.ecg")
+                            .font(.title2)
+                            .foregroundColor(.dsAccent)
+                    }
+
+                    VStack(alignment: .leading, spacing: Spacing.xs) {
+                        Text(fileURL.lastPathComponent)
+                            .font(.dsCallout)
+                            .foregroundColor(.dsPrimary)
+                            .lineLimit(2)
+
+                        if let attributes = try? FileManager.default.attributesOfItem(atPath: fileURL.path),
+                           let size = attributes[.size] as? Int64,
+                           let date = attributes[.modificationDate] as? Date {
+                            HStack(spacing: 4) {
+                                Image(systemName: "doc.text")
+                                    .font(.caption2)
+                                Text(formatFileSize(size))
+                                Text("•")
+                                Image(systemName: "clock")
+                                    .font(.caption2)
+                                Text(formatDate(date))
+                            }
+                            .font(.dsSmall)
+                            .foregroundColor(.dsSecondary)
+                        }
+                    }
+
+                    Spacer()
+
+                    // Share button
+                    Button(action: {
+                        showShareSheet = true
+                    }) {
+                        Image(systemName: "square.and.arrow.up")
+                            .font(.title3)
+                            .foregroundColor(.dsAccent)
+                            .frame(width: 40, height: 40)
+                            .background(
+                                Circle()
+                                    .fill(Color.dsAccent.opacity(0.1))
+                            )
+                    }
+                    .buttonStyle(BorderlessButtonStyle())
                 }
 
-                // Tags display (read-only)
+                // Duration
+                if let elapsedTime = connectivity.getElapsedTime(for: fileURL.lastPathComponent) {
+                    HStack(spacing: Spacing.xs) {
+                        Image(systemName: "timer")
+                            .font(.caption)
+                        Text("Duration: \(formatDuration(elapsedTime))")
+                            .font(.dsCaption)
+                    }
+                    .foregroundColor(.dsWarning)
+                    .padding(.horizontal, Spacing.sm)
+                    .padding(.vertical, 6)
+                    .background(
+                        Capsule()
+                            .fill(Color.dsWarning.opacity(0.12))
+                    )
+                }
+
+                // Tags
                 let tags = tagManager.getTags(for: fileURL.lastPathComponent).sorted()
                 if !tags.isEmpty {
-                    FlowLayout(spacing: 6) {
+                    FlowLayout(spacing: Spacing.xs) {
                         ForEach(tags, id: \.self) { tag in
                             TagPillView(
                                 tag: tag,
@@ -87,16 +276,6 @@ struct FileRow: View {
                     }
                 }
             }
-
-            Spacer()
-
-            Button(action: {
-                showShareSheet = true
-            }) {
-                Image(systemName: "square.and.arrow.up")
-                    .font(.title3)
-            }
-            .buttonStyle(.borderless)
         }
         .sheet(isPresented: $showShareSheet) {
             ShareSheet(items: [fileURL])
@@ -114,6 +293,17 @@ struct FileRow: View {
         formatter.dateStyle = .short
         formatter.timeStyle = .short
         return formatter.string(from: date)
+    }
+
+    private func formatDuration(_ duration: TimeInterval) -> String {
+        let minutes = Int(duration / 60)
+        let seconds = Int(duration.truncatingRemainder(dividingBy: 60))
+
+        if minutes > 0 {
+            return "\(minutes)m \(seconds)s"
+        } else {
+            return "\(seconds)s"
+        }
     }
 }
 
