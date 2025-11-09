@@ -307,7 +307,8 @@ struct GraphView: View {
                 // Skip header line and parse data
                 for line in lines.dropFirst() {
                     let components = line.components(separatedBy: ",")
-                    guard components.count == 4,
+                    // Support both 4-column (old format) and 5-column (new format with Source)
+                    guard components.count >= 4,
                           let timestamp = Double(components[0]),
                           let x = Double(components[1]),
                           let y = Double(components[2]),
