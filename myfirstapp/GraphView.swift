@@ -31,163 +31,242 @@ struct GraphView: View {
     @FocusState private var isTextFieldFocused: Bool
 
     var body: some View {
-        VStack {
+        ZStack {
+            Color.dsBackgroundSecondary
+                .ignoresSafeArea()
+
             if isLoading {
-                ProgressView("Loading data...")
-                    .padding()
+                VStack(spacing: Spacing.md) {
+                    ProgressView()
+                        .scaleEffect(1.2)
+                    Text("Loading data...")
+                        .font(.dsCallout)
+                        .foregroundColor(.dsSecondary)
+                }
             } else if let error = errorMessage {
-                VStack(spacing: 16) {
-                    Image(systemName: "exclamationmark.triangle")
-                        .font(.system(size: 48))
-                        .foregroundColor(.orange)
-                    Text("Error Loading Data")
-                        .font(.headline)
-                    Text(error)
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                        .multilineTextAlignment(.center)
-                }
-                .padding()
+                EmptyStateView(
+                    icon: "exclamationmark.triangle",
+                    title: "Error Loading Data",
+                    subtitle: error,
+                    iconColor: .orange
+                )
             } else if dataPoints.isEmpty {
-                VStack(spacing: 16) {
-                    Image(systemName: "chart.xyaxis.line")
-                        .font(.system(size: 48))
-                        .foregroundColor(.gray)
-                    Text("No Data")
-                        .font(.headline)
-                    Text("The file appears to be empty")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                }
-                .padding()
+                EmptyStateView(
+                    icon: "chart.xyaxis.line",
+                    title: "No Data",
+                    subtitle: "The file appears to be empty",
+                    iconColor: .gray
+                )
             } else {
                 ScrollView {
-                    VStack(alignment: .leading, spacing: 20) {
-                        // Data info
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("Data Points: \(dataPoints.count)")
-                                .font(.caption)
-                                .foregroundColor(.secondary)
-                            Text("Duration: \(formatDuration())")
-                                .font(.caption)
-                                .foregroundColor(.secondary)
-                        }
-                        .padding(.horizontal)
+                    VStack(alignment: .leading, spacing: Spacing.md) {
+                        // Data info card
+                        ModernCard(shadow: .subtle) {
+                            HStack(spacing: Spacing.lg) {
+                                VStack(alignment: .leading, spacing: Spacing.xs) {
+                                    Text("Data Points")
+                                        .font(.dsSmall)
+                                        .foregroundColor(.dsSecondary)
+                                    Text("\(dataPoints.count)")
+                                        .font(.dsHeadline)
+                                        .foregroundColor(.dsAccent)
+                                }
 
-                        // Chart
-                        Chart {
-                            ForEach(dataPoints) { point in
-                                LineMark(
-                                    x: .value("Time", point.timestamp),
-                                    y: .value("Acceleration", point.x),
-                                    series: .value("Axis", "X")
-                                )
-                                .foregroundStyle(.red)
+                                Divider()
+                                    .frame(height: 30)
 
-                                LineMark(
-                                    x: .value("Time", point.timestamp),
-                                    y: .value("Acceleration", point.y),
-                                    series: .value("Axis", "Y")
-                                )
-                                .foregroundStyle(.green)
+                                VStack(alignment: .leading, spacing: Spacing.xs) {
+                                    Text("Duration")
+                                        .font(.dsSmall)
+                                        .foregroundColor(.dsSecondary)
+                                    Text(formatDuration())
+                                        .font(.dsHeadline)
+                                        .foregroundColor(.dsAccent)
+                                }
 
-                                LineMark(
-                                    x: .value("Time", point.timestamp),
-                                    y: .value("Acceleration", point.z),
-                                    series: .value("Axis", "Z")
-                                )
-                                .foregroundStyle(.blue)
+                                Spacer()
                             }
                         }
-                        .chartYAxisLabel("Acceleration (g)")
-                        .chartXAxisLabel("Time (s)")
-                        .frame(height: 300)
-                        .padding()
+                        .padding(.horizontal, Spacing.md)
+                        .padding(.top, Spacing.md)
 
-                        // Legend
-                        HStack(spacing: 24) {
-                            Label("X-Axis", systemImage: "circle.fill")
-                                .foregroundColor(.red)
-                            Label("Y-Axis", systemImage: "circle.fill")
-                                .foregroundColor(.green)
-                            Label("Z-Axis", systemImage: "circle.fill")
-                                .foregroundColor(.blue)
+                        // Chart card
+                        ModernCard(padding: Spacing.md) {
+                            VStack(alignment: .leading, spacing: Spacing.md) {
+                                Text("Acceleration Data")
+                                    .font(.dsHeadline)
+
+                                Chart {
+                                    ForEach(dataPoints) { point in
+                                        LineMark(
+                                            x: .value("Time", point.timestamp),
+                                            y: .value("Acceleration", point.x),
+                                            series: .value("Axis", "X")
+                                        )
+                                        .foregroundStyle(
+                                            LinearGradient(
+                                                colors: [.red.opacity(0.8), .red],
+                                                startPoint: .top,
+                                                endPoint: .bottom
+                                            )
+                                        )
+
+                                        LineMark(
+                                            x: .value("Time", point.timestamp),
+                                            y: .value("Acceleration", point.y),
+                                            series: .value("Axis", "Y")
+                                        )
+                                        .foregroundStyle(
+                                            LinearGradient(
+                                                colors: [.green.opacity(0.8), .green],
+                                                startPoint: .top,
+                                                endPoint: .bottom
+                                            )
+                                        )
+
+                                        LineMark(
+                                            x: .value("Time", point.timestamp),
+                                            y: .value("Acceleration", point.z),
+                                            series: .value("Axis", "Z")
+                                        )
+                                        .foregroundStyle(
+                                            LinearGradient(
+                                                colors: [.blue.opacity(0.8), .blue],
+                                                startPoint: .top,
+                                                endPoint: .bottom
+                                            )
+                                        )
+                                    }
+                                }
+                                .chartYAxisLabel("Acceleration (g)")
+                                .chartXAxisLabel("Time (s)")
+                                .frame(height: 280)
+
+                                // Legend
+                                HStack(spacing: Spacing.lg) {
+                                    HStack(spacing: Spacing.xs) {
+                                        Circle()
+                                            .fill(.red)
+                                            .frame(width: 8, height: 8)
+                                        Text("X-Axis")
+                                            .font(.dsCaption)
+                                    }
+                                    HStack(spacing: Spacing.xs) {
+                                        Circle()
+                                            .fill(.green)
+                                            .frame(width: 8, height: 8)
+                                        Text("Y-Axis")
+                                            .font(.dsCaption)
+                                    }
+                                    HStack(spacing: Spacing.xs) {
+                                        Circle()
+                                            .fill(.blue)
+                                            .frame(width: 8, height: 8)
+                                        Text("Z-Axis")
+                                            .font(.dsCaption)
+                                    }
+                                }
+                                .foregroundColor(.dsSecondary)
+                            }
                         }
-                        .font(.caption)
-                        .padding(.horizontal)
-
-                        Divider()
-                            .padding(.vertical)
+                        .padding(.horizontal, Spacing.md)
 
                         // Tags section
-                        VStack(alignment: .leading, spacing: 12) {
-                            Text("Tags")
-                                .font(.headline)
-                                .foregroundColor(.secondary)
-                                .padding(.horizontal)
+                        ModernCard {
+                            VStack(alignment: .leading, spacing: Spacing.md) {
+                                Text("Tags")
+                                    .font(.dsHeadline)
+                                    .foregroundColor(.dsPrimary)
 
-                            if !tagManager.allTags.isEmpty {
-                                FlowLayout(spacing: 8) {
-                                    ForEach(Array(tagManager.allTags).sorted(), id: \.self) { tag in
-                                        TagPillView(
-                                            tag: tag,
-                                            color: tagManager.colorForTag(tag),
-                                            isSelected: selectedTags.contains(tag)
-                                        )
-                                        .onTapGesture {
-                                            toggleTag(tag)
-                                        }
-                                        .onLongPressGesture(minimumDuration: 0.5) {
-                                            tagToDelete = tag
-                                            showingDeleteAlert = true
+                                if !tagManager.allTags.isEmpty {
+                                    FlowLayout(spacing: Spacing.xs) {
+                                        ForEach(Array(tagManager.allTags).sorted(), id: \.self) { tag in
+                                            Button(action: {
+                                                toggleTag(tag)
+                                            }) {
+                                                TagPillView(
+                                                    tag: tag,
+                                                    color: tagManager.colorForTag(tag),
+                                                    isSelected: selectedTags.contains(tag)
+                                                )
+                                            }
+                                            .buttonStyle(ScaleButtonStyle())
+                                            .simultaneousGesture(
+                                                LongPressGesture(minimumDuration: 0.5)
+                                                    .onEnded { _ in
+                                                        tagToDelete = tag
+                                                        showingDeleteAlert = true
+                                                    }
+                                            )
                                         }
                                     }
                                 }
-                                .padding(.horizontal)
-                            }
 
-                            // Add new tag
-                            if showingAddField {
-                                HStack {
-                                    TextField("Enter tag name", text: $newTagText)
-                                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                                        .autocapitalization(.none)
-                                        .focused($isTextFieldFocused)
+                                // Add new tag
+                                if showingAddField {
+                                    VStack(spacing: Spacing.xs) {
+                                        TextField("Enter tag name", text: $newTagText)
+                                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                                            .autocapitalization(.none)
+                                            .focused($isTextFieldFocused)
 
-                                    Button(action: addNewTag) {
-                                        Image(systemName: "checkmark.circle.fill")
-                                            .font(.title2)
-                                            .foregroundColor(.blue)
+                                        HStack(spacing: Spacing.sm) {
+                                            Button(action: {
+                                                showingAddField = false
+                                                newTagText = ""
+                                                isTextFieldFocused = false
+                                            }) {
+                                                Text("Cancel")
+                                                    .font(.dsCallout)
+                                                    .foregroundColor(.dsSecondary)
+                                                    .frame(maxWidth: .infinity)
+                                                    .padding(.vertical, Spacing.sm)
+                                                    .background(Color.dsBackgroundTertiary)
+                                                    .cornerRadius(CornerRadius.sm)
+                                            }
+
+                                            Button(action: addNewTag) {
+                                                Text("Add Tag")
+                                                    .font(.dsCallout)
+                                                    .fontWeight(.semibold)
+                                                    .foregroundColor(.white)
+                                                    .frame(maxWidth: .infinity)
+                                                    .padding(.vertical, Spacing.sm)
+                                                    .background(
+                                                        LinearGradient(
+                                                            colors: [.blue, .purple],
+                                                            startPoint: .leading,
+                                                            endPoint: .trailing
+                                                        )
+                                                    )
+                                                    .cornerRadius(CornerRadius.sm)
+                                            }
+                                            .disabled(newTagText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                                            .opacity(newTagText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? 0.5 : 1.0)
+                                        }
                                     }
-                                    .disabled(newTagText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
-
+                                } else {
                                     Button(action: {
-                                        showingAddField = false
-                                        newTagText = ""
-                                        isTextFieldFocused = false
+                                        showingAddField = true
+                                        isTextFieldFocused = true
                                     }) {
-                                        Image(systemName: "xmark.circle.fill")
-                                            .font(.title2)
-                                            .foregroundColor(.gray)
+                                        HStack {
+                                            Image(systemName: "plus.circle.fill")
+                                            Text("Add New Tag")
+                                        }
+                                        .font(.dsCallout)
+                                        .foregroundColor(.dsAccent)
+                                        .frame(maxWidth: .infinity)
+                                        .padding(.vertical, Spacing.sm)
+                                        .background(Color.dsAccent.opacity(0.1))
+                                        .cornerRadius(CornerRadius.sm)
                                     }
+                                    .pressableScale()
                                 }
-                                .padding(.horizontal)
-                            } else {
-                                Button(action: {
-                                    showingAddField = true
-                                    isTextFieldFocused = true
-                                }) {
-                                    HStack {
-                                        Image(systemName: "plus.circle.fill")
-                                        Text("Add New Tag")
-                                    }
-                                    .font(.headline)
-                                    .foregroundColor(.blue)
-                                }
-                                .padding(.horizontal)
                             }
                         }
-                        .padding(.bottom)
+                        .padding(.horizontal, Spacing.md)
+                        .padding(.bottom, Spacing.md)
                     }
                     .padding(.vertical)
                 }
@@ -195,6 +274,7 @@ struct GraphView: View {
         }
         .navigationTitle(fileURL.lastPathComponent)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbarBackground(.visible, for: .navigationBar)
         .onAppear {
             loadData()
             selectedTags = Set(tagManager.getTags(for: fileURL.lastPathComponent))
@@ -323,10 +403,15 @@ struct GraphView: View {
     }
 
     private func toggleTag(_ tag: String) {
-        if selectedTags.contains(tag) {
-            selectedTags.remove(tag)
-        } else {
-            selectedTags.insert(tag)
+        let generator = UIImpactFeedbackGenerator(style: .light)
+        generator.impactOccurred()
+
+        withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
+            if selectedTags.contains(tag) {
+                selectedTags.remove(tag)
+            } else {
+                selectedTags.insert(tag)
+            }
         }
         saveTags()
     }
@@ -335,10 +420,15 @@ struct GraphView: View {
         let trimmed = newTagText.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return }
 
-        tagManager.addTag(trimmed)
-        selectedTags.insert(trimmed)
-        newTagText = ""
-        showingAddField = false
+        let generator = UIImpactFeedbackGenerator(style: .light)
+        generator.impactOccurred()
+
+        withAnimation {
+            tagManager.addTag(trimmed)
+            selectedTags.insert(trimmed)
+            newTagText = ""
+            showingAddField = false
+        }
         saveTags()
     }
 

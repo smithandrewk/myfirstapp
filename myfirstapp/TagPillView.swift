@@ -19,27 +19,53 @@ struct TagPillView: View {
     }
 
     var body: some View {
-        HStack(spacing: 4) {
+        HStack(spacing: Spacing.xs) {
             Text(tag)
-                .font(.caption)
-                .fontWeight(.medium)
+                .font(.dsCaption)
+                .fontWeight(.semibold)
 
             if isSelected {
                 Image(systemName: "checkmark.circle.fill")
-                    .font(.caption)
+                    .font(.caption2)
+                    .transition(.scale.combined(with: .opacity))
             }
         }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 6)
+        .padding(.horizontal, Spacing.sm)
+        .padding(.vertical, Spacing.xs)
         .background(
-            Capsule()
-                .fill(color.opacity(0.2))
-                .overlay(
+            ZStack {
+                // Base background
+                Capsule()
+                    .fill(color.opacity(isSelected ? 0.2 : 0.12))
+
+                // Selected gradient overlay
+                if isSelected {
                     Capsule()
-                        .stroke(color.opacity(0.5), lineWidth: isSelected ? 2 : 1)
-                )
+                        .fill(
+                            LinearGradient(
+                                colors: [color.opacity(0.3), color.opacity(0.15)],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                }
+
+                // Border
+                Capsule()
+                    .stroke(
+                        color.opacity(isSelected ? 0.6 : 0.3),
+                        lineWidth: isSelected ? 1.5 : 1
+                    )
+            }
         )
-        .foregroundColor(color)
+        .foregroundColor(isSelected ? color : color.opacity(0.8))
+        .shadow(
+            color: isSelected ? color.opacity(0.3) : .clear,
+            radius: isSelected ? 4 : 0,
+            y: isSelected ? 2 : 0
+        )
+        .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isSelected)
+        .contentShape(Capsule())
     }
 }
 
